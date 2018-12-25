@@ -1,14 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title><%=title%></title>
+  <meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title><%=title%></title>
+		<link rel="stylesheet" href="/admin/plugins/layui/css/layui.css" media="all" />
+		<style type="text/css">
+			body{background: url(admin/images/rebc.gif);}
+		</style>
 </head>
 <body>
-  <div class="">
-    登陆页面
+  <div style="margin-top: 200px">
+    <div style="text-align: center;">
+		<a href="#"><img src="admin/images/admin_logo.png" /></a>
+	</div>
+	<br>
+	<div style="margin-left: 30%;margin-right: 30%">
+		<fieldset class="layui-elem-field">
+			<div class="layui-field-box" style="background-color: white;">
+				<div class="head">
+					<img src="admin/images/15.png" style="width: 30px;height: 30px;">
+					<span>用户登录</span>
+				</div>
+				<br>
+				<form class="layui-form" id="" name="loginForm" style="text-align: center">
+					<div class="layui-form-item">
+						<label class="layui-form-label">用户名</label>
+						<div class="layui-input-block">
+							<input type="text" name="username" id="username" autocomplete="off" placeholder="请输入用户名" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">密码</label>
+						<div class="layui-input-block">
+							<input type="text" name="password" id="password" lay-verify="title" autocomplete="off" placeholder="请输入密码" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">验证码</label>
+						<div class="layui-input-block">
+							<!--图片验证码，点击图片实现刷新-->
+							<img src="http://localhost:3008/captcha"  style="float: right;width: 40%;height: 38px;cursor:pointer" onclick="this.src='http://localhost:3008/captcha?d='+Math.random();">
+							<input type="text" name="captcha" id="captcha" style="width: 60%" autocomplete="off" placeholder="请输入验证码" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label"></label>
+						<div class="layui-input-block">
+							<button class="layui-btn layui-btn-normal" style="width: 100%" id="login" type="submit">登 陆</button>
+						</div>
+					</div>
+				</form>
+				<div style="text-align: right">
+					<a href="/register" style="margin-left: 40px">去注册</a>
+				</div>
+			</div>
+		</fieldset>
+	</div>
   </div>
 </body>
 </html>

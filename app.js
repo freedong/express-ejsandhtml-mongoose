@@ -3,10 +3,19 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+// session插件
+var session = require('express-session');
+
+// 图片验证码插件的使用
+var svgCaptcha = require('svg-captcha');
 
 
 
 var app = express();
+
+// 执行和连接数据库
+var mongoose = require("./db_config/mongoose.js");
+var db = mongoose();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +30,41 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+
+
+//这里周期只设置为20秒，为了方便测试
+//secret在正式用的时候务必修改
+//express中间件顺序要和下面一致
+
+app.use(session({//session持久化配置
+  secret: "zxd",
+  key: "zxd",
+  cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//超时时间
+  saveUninitialized: true,
+  resave: false,
+}));
+
+
+
+// 图片验证码插件的使用
+
+app.get('/captcha', function (req, res) {
+  var captcha = svgCaptcha.create({
+    size: 4, // 验证码长度
+    ignoreChars: '0o1i', // 验证码字符中排除 0o1i
+    noise: 1, // 干扰线条的数量
+    color: true, // 验证码的字符是否有颜色，默认没有，如果设定了背景，则默认有
+    background: '#c4c4c5' // background color of the svg image
+  });
+  console.log("session");
+  //将生成的验证码放在session中
+  req.session.captcha = captcha.text;
+  console.log( req.session.captcha);
+  res.set('Content-Type', 'image/svg+xml');
+  res.status(200).send(captcha.data);
+});
+
+
 // 网站页面
 require('./routes/websiteRoute/index')(app);
 // var indexRouter = require('./routes/websiteRoute/index');
@@ -29,6 +73,9 @@ require('./routes/websiteRoute/index')(app);
 require("./routes/adminRoute/users")(app);
 // var usersRouter = require('./routes/adminRoute/users');
 // app.use('/admin', usersRouter);
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
