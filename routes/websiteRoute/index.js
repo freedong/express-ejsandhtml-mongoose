@@ -1,9 +1,7 @@
-var express = require('express');
-var router = express.Router();
+var Index = require("../../controller/web/index");
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
 
-module.exports = router;
+module.exports = function(app){
+  // 首页路由
+  app.get('/',Index.index);
+};

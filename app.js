@@ -4,10 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-// 网站页面
-var indexRouter = require('./routes/websiteRoute/index');
-// 后台管理页面
-var usersRouter = require('./routes/adminRoute/users');
+
 
 var app = express();
 
@@ -23,8 +20,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/web', indexRouter);
-app.use('/admin', usersRouter);
+
+// 网站页面
+require('./routes/websiteRoute/index')(app);
+// var indexRouter = require('./routes/websiteRoute/index');
+// app.use('/web', indexRouter);
+// 后台管理页面
+require("./routes/adminRoute/users")(app);
+// var usersRouter = require('./routes/adminRoute/users');
+// app.use('/admin', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -39,7 +43,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('websiteHtml/index/error');
 });
 
 module.exports = app;
