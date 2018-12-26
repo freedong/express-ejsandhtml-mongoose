@@ -24,4 +24,7 @@ module.exports = function(app){
 
   // 添加管理员
   app.get('/admin_add',Admin.admin_add);
+
+  // 分页获取管理员列表
+  app.post('/admin/get_users',Admin.get_users);
 }

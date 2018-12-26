@@ -139,3 +139,46 @@ exports.admin_list = function(req,res){
 exports.admin_add = function(req,res){
   res.render('adminHtml/admin_add');
 };
+
+
+// 分页获取管理员列表
+exports.get_users = function(req,res){
+  var curr = req.body.curr;
+  //每页大小为10
+  var query = User.find({});
+  // 根据传递的页数跳过之前的10个
+  query.skip((curr-1)*10);
+  // 限制10个
+  query.limit(10);
+  //按照id添加的顺序倒序排列
+  query.sort({'_id':-1});
+  //计算分页数据
+  query.exec(function(err,rs){
+    //rs 的结果是根据请求的curr显示数量  每次请求会跳过之前的10个
+    console.log(rs+"rs");
+    if(err){
+      res.send(err);
+    }else{
+      //计算数据总数  分页
+      User.find(function(err,result){
+        //result 的结果是显示总数量
+        console.log(result+"result");
+        if(result.length%10>0){
+          // 如果不够10个  页数加1
+          pages = result.length/10 + 1;
+        }else{
+          pages = result.length/10;
+        }
+
+        jsonArray = {
+          data:rs,
+          pages:pages
+        };
+        res.json(jsonArray);
+
+
+      });
+    }
+  });
+
+};
