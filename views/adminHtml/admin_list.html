@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="/admin/plugins/layui/css/layui.css" media="all" />
+  <link rel="stylesheet" href="/admin/css/global.css" media="all">
+  <link rel="stylesheet" href="/admin/plugins/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/admin/css/table.css" />
+</head>
+<body>
+  <div class="admin-main">
+    <blockquote class="layui-elem-quote">
+  		<a href="javascript:;" class="layui-btn layui-btn-small" id="refresh">
+  			刷新数据
+  		</a>
+  	</blockquote>
+    <fieldset class="layui-elem-field">
+  		<legend>数据列表</legend>
+  		<div class="layui-field-box">
+  			<table class="site-table table-hover">
+  				<thead>
+  				<tr>
+  					<th>序号</th>
+  					<th>用户名</th>
+  					<th>密码</th>
+  					<th>真实姓名</th>
+  					<th>电话</th>
+  					<th>当前状态</th>
+  					<th>操作</th>
+  				</tr>
+  				</thead>
+  				<tbody id="tabContent">
+
+  				</tbody>
+  			</table>
+  		</div>
+  	</fieldset>
+    <div class="admin-table-page">
+  		<div id="page" class="page">
+  		</div>
+  	</div>
+  </div>
+</body>
+</html>

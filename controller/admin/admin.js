@@ -67,3 +67,75 @@ exports.register_success = function(req,res){
 		title:"注册成功"
 	});
 };
+
+
+// 登录页面 提交数据
+exports.checkUser = function(req,res){
+  var username=req.body.username;
+  var password=req.body.password;
+  var captcha=req.body.captcha;
+
+  if(captcha!=req.session.captcha){
+    console.log('captcha error');
+    res.json({'status':'captcha error'});
+  }else{  //验证码正确
+    User.findOne({username:username},function(err,doc){
+      if(err){
+        console.log('error');
+        res.json({'status':'error'});
+      }else if(doc==null){
+        console.log('not exist');
+        res.json({'status':'not exist'});
+      }else if(doc.status==='0'){
+        //如果是刚注册的用户，还未授权无法登陆。
+        console.log('unchecked');
+        res.json({'status':'unchecked'});
+      }else if(doc.password===password){
+        console.log('success');
+        //登录成功，将user保存到session中
+        req.session.user = doc;
+        res.json({'status':'success'});
+      }else{
+        console.log('password error');
+        res.json({'status':'password error'});
+      }
+    });
+  }
+};
+
+
+// 登录成功后的  显示首页
+exports.admin = function(req,res){
+  var isSuper;
+  if(req.session.user.status==='2'){
+    isSuper='超级管理员';
+  }else{
+    isSuper='普通管理员';
+  }
+  res.render('adminHtml/index',{
+    title:"后台首页",
+    username:req.session.user.username,
+    isSuper:isSuper
+  });
+};
+
+// 注销
+exports.logout = function(req,res){
+  req.session.user = null;
+  res.redirect('/login');
+};
+
+
+// 主页  (显示提交表单的数据)
+exports.main = function(req,res){
+  res.render('adminHtml/main');
+};
+//管理员列表
+exports.admin_list = function(req,res){
+  res.render('adminHtml/admin_list');
+};
+
+//添加管理员
+exports.admin_add = function(req,res){
+  res.render('adminHtml/admin_add');
+};
