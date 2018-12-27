@@ -18,11 +18,11 @@ var navs = [{
 	"children": [{
 		"title": "新闻列表",
 		"icon": "fa-table",
-		"href": "news_list.html"
+		"href": "/news_list"
 	}, {
 		"title": "添加新闻",
 		"icon": "fa-navicon",
-		"href": "add_news.html"
+		"href": "/add_news"
 	}]
 }, {
 	"title": "人力资源",
@@ -31,18 +31,18 @@ var navs = [{
 	"children": [{
 		"title": "招聘列表",
 		"icon": "fa-check-square-o",
-		"href": "recruit_list.html"
+		"href": "/recruit_list"
 	},{
 		"title": "添加招聘",
 		"icon": "fa-qq",
-		"href": "add_recruit.html"
+		"href": "/add_recruit"
 	},{
 		"title": "离职公示列表",
 		"icon": "fa-github",
-		"href": "quit_notice_list.html"
+		"href": "/quit_notice_list"
 	},{
 		"title": "添加离职公示",
 		"icon": "&#xe609",
-		"href": "add_quit_notice.html"
+		"href": "/add_quit_notice"
 	}]
 }];

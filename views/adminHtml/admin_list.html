@@ -75,7 +75,29 @@
         shade: false
       },function(index){
         console.log(index);
-        $.post();
+        $.post('/admin/user_del',{id:id},function(result){
+          if(result.status === "success"){
+            // jquery删除方法
+            $(obj).parents("tr").remove();
+            layer.msg('已删除!', {
+							icon: 1,
+							time: 1000
+						});
+            // getData(1);
+            // 刷新当前页面
+            window.location.reload();
+          }else if(result.status==="noRight"){
+            layer.msg('你不是超级管理员，无法删除!', {
+							icon: 1,
+							time: 1000
+						});
+          }else{
+            layer.msg('删除失败!', {
+							icon: 1,
+							time: 1000
+						});
+          }
+        });
       });
     });
 
@@ -90,7 +112,27 @@
         title: '警告',
         shade: false
       }, function(index) {
-        
+        $.post('/admin/authorize',{id:id},function(result){
+          if(result.status==="success"){
+						layer.msg('授权成功!', {
+							icon: 1,
+							time: 1000
+						});
+						// getData(1);
+            // 刷新页面
+            window.location.reload();
+					}else if(result.status==="noRight"){
+						layer.msg('对不起，你不是高级用户，无法授权', {
+							icon: 1,
+							time: 1000
+						});
+					}else{
+						layer.msg('授权失败!', {
+							icon: 1,
+							time: 1000
+						});
+					}
+        });
       });
     });
 
