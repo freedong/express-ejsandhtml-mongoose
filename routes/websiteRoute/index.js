@@ -10,4 +10,6 @@ module.exports = function(app){
   app.get('/web/get_recruits', Index.get_recruits);
   // 获取离职公示信息2条
   app.get('/web/get_quits', Index.get_quits);
+  // 走进车协
+  app.get('/company_intro', Index.company_intro);
 };

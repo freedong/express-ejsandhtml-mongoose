@@ -76,3 +76,9 @@ exports.get_quits= function(req, res) {
         }
     });
 };
+
+
+// 走进车协
+exports.company_intro = function(req, res) {
+    res.render('websiteHtml/company/company_intro');
+};
