@@ -76,5 +76,3 @@ exports.get_quits= function(req, res) {
         }
     });
 };
-
-
